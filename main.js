@@ -28,11 +28,34 @@ window.addEventListener('load', function() {
 })
 
 function btnClick(btn) {
-    btn.textContent = player;
+    if (btn.textContent == "") btn.textContent = player;
+    checkWin();
     changePlayer();
 }
 
 function changePlayer() {
     if (player == "O") player = "X";
     else if (player == "X") player = "O";
+}
+
+function checkWin() {
+    // řádky
+    if (a1.textContent == player && a2.textContent == player && a3.textContent == player) playerWin();
+    else if (b1.textContent == player && b2.textContent == player && b3.textContent == player) playerWin();
+    else if (c1.textContent == player && c2.textContent == player && c3.textContent == player) playerWin();
+
+    // sloupce
+    else if (a1.textContent == player && b1.textContent == player && c1.textContent == player) playerWin();
+    else if (a2.textContent == player && b2.textContent == player && c2.textContent == player) playerWin();
+    else if (a3.textContent == player && b3.textContent == player && c3.textContent == player) playerWin();
+
+    // křížem
+    else if (a1.textContent == player && b2.textContent == player && c3.textContent == player) playerWin();
+    else if (a3.textContent == player && b2.textContent == player && c1.textContent == player) playerWin();
+
+    // jiné - nevyhrál, pokračuje se dál...
+}
+
+function playerWin() {
+    console.log("PLAYER: ", player, " HAS WON THE GAME.")
 }
