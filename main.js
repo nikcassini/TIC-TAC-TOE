@@ -19,8 +19,11 @@ var player = players[Math.floor(Math.random() * 2)];
 var paused = false;
 var playCount = 0;
 
-let myModal = new bootstrap.Modal('#modalGameOver');
+let gameOverModal = new bootstrap.Modal('#modalGameOver');
 var gameOverText = document.getElementById("gameOverText");
+
+let modalSettings = new bootstrap.Modal('#modalSettings');
+let btnSettings = document.getElementById("btnSettings");
 
 window.addEventListener('load', function() {
     onTurn.textContent = player;
@@ -39,6 +42,10 @@ window.addEventListener('load', function() {
 
     btnNewGame.addEventListener('click', function() { newGame() })
     btnModalNewGame.addEventListener('click', function() { newGame() })
+
+    btnSettings.addEventListener('click', function() {
+        modalSettings.show();
+    })
 })
 
 function newGame() {
@@ -96,11 +103,11 @@ function checkWin() {
 function playerWin() {
     paused = true;
     gameOverText.textContent = "Player " + player + " has won the game";
-    myModal.show();
+    gameOverModal.show();
 }
 
 function draw() {
     paused = true;
     gameOverText.textContent = "It's a draw.";
-    myModal.show();
+    gameOverModal.show();
 }
