@@ -12,3 +12,24 @@
 .gameBtn:active {
     background-color: lightgray;
 }
+
+.btn {
+    transition: all ease-in-out 240ms;
+    width: 200px;
+}
+.btn:hover {
+    color: black !important;
+    background-color: gray !important;
+}
+
+.btn-primary {
+    color: white !important;
+    background-color: black !important;
+    border: 2px solid black !important;
+}
+
+.btn-outline-primary {
+    color: black !important;
+    background-color: transparent !important;
+    border: 2px solid black !important;
+}

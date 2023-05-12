@@ -10,6 +10,8 @@ let c1 = document.getElementById("c1");
 let c2 = document.getElementById("c2");
 let c3 = document.getElementById("c3");
 
+let onTurn = document.getElementById("onTurn");
+
 let players = [ "X", "O" ];
 var player = players[Math.floor(Math.random() * 2)];
 
@@ -25,6 +27,8 @@ window.addEventListener('load', function() {
     c1.addEventListener('click', function() { btnClick(c1) })
     c2.addEventListener('click', function() { btnClick(c2) })
     c3.addEventListener('click', function() { btnClick(c3) })
+
+    onTurn.textContent = player;
 })
 
 function btnClick(btn) {
@@ -36,6 +40,8 @@ function btnClick(btn) {
 function changePlayer() {
     if (player == "O") player = "X";
     else if (player == "X") player = "O";
+
+    onTurn.textContent = player;
 }
 
 function checkWin() {
