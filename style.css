@@ -1,0 +1,9 @@
+.gameBtn {
+    transition: all ease-in-out 140ms;
+    width: 150px;
+    height: 150px;
+}
+
+.gameBtn:hover {
+    background-color: whitesmoke !important;
+}
