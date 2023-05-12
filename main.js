@@ -11,11 +11,16 @@ let c2 = document.getElementById("c2");
 let c3 = document.getElementById("c3");
 
 let onTurn = document.getElementById("onTurn");
+let btnNewGame = document.getElementById("btnNewGame")
 
 let players = [ "X", "O" ];
 var player = players[Math.floor(Math.random() * 2)];
+var paused = false;
+var playCount = 0;
 
 window.addEventListener('load', function() {
+    onTurn.textContent = player;
+
     a1.addEventListener('click', function() { btnClick(a1) })
     a2.addEventListener('click', function() { btnClick(a2) })
     a3.addEventListener('click', function() { btnClick(a3) })
@@ -28,13 +33,29 @@ window.addEventListener('load', function() {
     c2.addEventListener('click', function() { btnClick(c2) })
     c3.addEventListener('click', function() { btnClick(c3) })
 
-    onTurn.textContent = player;
+    btnNewGame.addEventListener('click', function() {
+        paused = false;
+
+        playCount = 0;
+
+        a1.textContent = a2.textContent = a3.textContent =
+        b1.textContent = b2.textContent = b3.textContent =
+        c1.textContent = c2.textContent = c3.textContent = "";
+
+        player = players[Math.floor(Math.random() * 2)];
+        changePlayer();
+    })
 })
 
 function btnClick(btn) {
-    if (btn.textContent == "") btn.textContent = player;
-    checkWin();
-    changePlayer();
+    if (!paused) {
+        if (btn.textContent == "") {
+            btn.textContent = player;
+            playCount++;
+            checkWin();
+            changePlayer();
+        }
+    }
 }
 
 function changePlayer() {
@@ -59,9 +80,18 @@ function checkWin() {
     else if (a1.textContent == player && b2.textContent == player && c3.textContent == player) playerWin();
     else if (a3.textContent == player && b2.textContent == player && c1.textContent == player) playerWin();
 
-    // jiné - nevyhrál, pokračuje se dál...
+    // remíza
+    else if (playCount == 9) {
+        draw();
+    }
 }
 
 function playerWin() {
-    console.log("PLAYER: ", player, " HAS WON THE GAME.")
+    console.log("PLAYER: ", player, " HAS WON THE GAME.");
+    paused = true;
+}
+
+function draw() {
+    console.log("IT'S A DRAW.");
+    paused = true;
 }
