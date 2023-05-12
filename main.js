@@ -11,12 +11,16 @@ let c2 = document.getElementById("c2");
 let c3 = document.getElementById("c3");
 
 let onTurn = document.getElementById("onTurn");
-let btnNewGame = document.getElementById("btnNewGame")
+let btnNewGame = document.getElementById("btnNewGame");
+let btnModalNewGame = document.getElementById("btnModalNewGame");
 
 let players = [ "X", "O" ];
 var player = players[Math.floor(Math.random() * 2)];
 var paused = false;
 var playCount = 0;
+
+let myModal = new bootstrap.Modal('#modalGameOver');
+var gameOverText = document.getElementById("gameOverText");
 
 window.addEventListener('load', function() {
     onTurn.textContent = player;
@@ -33,19 +37,22 @@ window.addEventListener('load', function() {
     c2.addEventListener('click', function() { btnClick(c2) })
     c3.addEventListener('click', function() { btnClick(c3) })
 
-    btnNewGame.addEventListener('click', function() {
-        paused = false;
-
-        playCount = 0;
-
-        a1.textContent = a2.textContent = a3.textContent =
-        b1.textContent = b2.textContent = b3.textContent =
-        c1.textContent = c2.textContent = c3.textContent = "";
-
-        player = players[Math.floor(Math.random() * 2)];
-        changePlayer();
-    })
+    btnNewGame.addEventListener('click', function() { newGame() })
+    btnModalNewGame.addEventListener('click', function() { newGame() })
 })
+
+function newGame() {
+    paused = false;
+
+    playCount = 0;
+
+    a1.textContent = a2.textContent = a3.textContent =
+    b1.textContent = b2.textContent = b3.textContent =
+    c1.textContent = c2.textContent = c3.textContent = "";
+
+    player = players[Math.floor(Math.random() * 2)];
+    changePlayer();
+}
 
 function btnClick(btn) {
     if (!paused) {
@@ -87,11 +94,13 @@ function checkWin() {
 }
 
 function playerWin() {
-    console.log("PLAYER: ", player, " HAS WON THE GAME.");
     paused = true;
+    gameOverText.textContent = "Player " + player + " has won the game";
+    myModal.show();
 }
 
 function draw() {
-    console.log("IT'S A DRAW.");
     paused = true;
+    gameOverText.textContent = "It's a draw.";
+    myModal.show();
 }
