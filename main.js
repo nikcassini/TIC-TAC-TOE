@@ -32,6 +32,8 @@ var playerNameO = "O";
 
 window.addEventListener('load', function() {
     onTurn.textContent = player;
+    document.getElementById("playerNameX").value = playerNameX;
+    document.getElementById("playerNameO").value = playerNameO;
 
     a1.addEventListener('click', function() { btnClick(a1) })
     a2.addEventListener('click', function() { btnClick(a2) })
