@@ -25,6 +25,11 @@ var gameOverText = document.getElementById("gameOverText");
 let modalSettings = new bootstrap.Modal('#modalSettings');
 let btnSettings = document.getElementById("btnSettings");
 
+let btnApplyChanges = document.getElementById("btnApplyChanges");
+
+var playerNameX = "X";
+var playerNameO = "O";
+
 window.addEventListener('load', function() {
     onTurn.textContent = player;
 
@@ -45,6 +50,23 @@ window.addEventListener('load', function() {
 
     btnSettings.addEventListener('click', function() {
         modalSettings.show();
+    })
+
+    btnApplyChanges.addEventListener('click', function() {
+        playerNameX = document.getElementById("playerNameX").value;
+        playerNameO = document.getElementById("playerNameO").value;
+
+        if (playerNameX == "") playerNameX = "X";
+        if (playerNameO == "") playerNameO = "O";
+
+        modalSettings.hide();
+
+        if (player == "O") {
+            onTurn.textContent = playerNameO;
+        }
+        else if (player == "X") {
+            onTurn.textContent = playerNameX;
+        }
     })
 })
 
@@ -73,10 +95,14 @@ function btnClick(btn) {
 }
 
 function changePlayer() {
-    if (player == "O") player = "X";
-    else if (player == "X") player = "O";
-
-    onTurn.textContent = player;
+    if (player == "O") {
+        player = "X";
+        onTurn.textContent = playerNameX;
+    }
+    else if (player == "X") {
+        player = "O";
+        onTurn.textContent = playerNameO;
+    }
 }
 
 function checkWin() {
@@ -102,7 +128,8 @@ function checkWin() {
 
 function playerWin() {
     paused = true;
-    gameOverText.textContent = "Player " + player + " has won the game";
+    if (player == "X") gameOverText.textContent = "Player " + playerNameX + " has won the game";
+    else if (player == "O") gameOverText.textContent = "Player " + playerNameO + " has won the game";
     gameOverModal.show();
 }
 
